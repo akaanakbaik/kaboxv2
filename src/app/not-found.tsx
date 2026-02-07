@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MoveLeft, FileQuestion } from "lucide-react";
 import "@/app/globals.css";
 
+// Wajib force-dynamic agar tidak error saat build static
 export const dynamic = "force-dynamic";
 
 export default function NotFound() {
@@ -22,18 +23,17 @@ export default function NotFound() {
               Page Not Found
             </h2>
             <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed">
-              Maaf, halaman yang Anda cari tidak dapat ditemukan. Mungkin halaman tersebut telah dihapus,
-              namanya diubah, atau sementara tidak tersedia.
+              Halaman tidak ditemukan.
             </p>
           </div>
           
           <div className="flex flex-col gap-2 min-[400px]:flex-row">
             <Link
               href="/"
-              className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+              className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
             >
               <MoveLeft className="mr-2 h-4 w-4" />
-              Kembali ke Home
+              Kembali
             </Link>
           </div>
         </div>
