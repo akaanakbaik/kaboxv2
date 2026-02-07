@@ -1,0 +1,27 @@
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { Uploader } from "@/components/home/uploader";
+
+export default function HomePage() {
+  return (
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <main className="flex-1 container py-10 md:py-16 flex flex-col items-center justify-center">
+        <div className="w-full max-w-4xl text-center space-y-6 mb-10">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60 animate-in-fade">
+            Simpan File Tanpa Batas
+          </h1>
+          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto animate-up">
+            CDN Multi-Cloud pintar yang mengamankan dan mempercepat distribusi file Anda.
+            Upload, bagikan, dan lupakan.
+          </p>
+        </div>
+        
+        <div className="w-full animate-up" style={{ animationDelay: "0.2s" }}>
+          <Uploader />
+        </div>
+      </main>
+      <Footer />
+    </div>
+  );
+}
