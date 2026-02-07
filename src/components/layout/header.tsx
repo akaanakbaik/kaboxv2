@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Icons } from "@/components/icons";
-import { cn } from "@/lib/utils";
 
 export function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -12,9 +11,9 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-30 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
+        <div className="container flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-2">
-            <Link href="/~" className="flex items-center gap-2 font-bold text-lg tracking-tight hover:opacity-80 transition-opacity">
+            <Link href="/" className="flex items-center gap-2 font-bold text-lg tracking-tight hover:opacity-80 transition-opacity">
               <div className="bg-foreground text-background p-1 rounded-md">
                 <Icons.logo className="h-5 w-5" />
               </div>
@@ -23,7 +22,7 @@ export function Header() {
           </div>
 
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-             <Link href="/~" className="text-muted-foreground hover:text-foreground transition-colors">Home</Link>
+             <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">Home</Link>
              <Link href="/docs" className="text-muted-foreground hover:text-foreground transition-colors">API Docs</Link>
           </nav>
 
