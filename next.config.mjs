@@ -42,7 +42,7 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: "20mb",
     },
-    optimizePackageImports: ["lucide-react", "date-fns", "lodash", "framer-motion"],
+    optimizePackageImports: ["lucide-react", "date-fns", "lodash", "framer-motion", "recharts"],
   },
 };
 
