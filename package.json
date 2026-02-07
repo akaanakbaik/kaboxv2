@@ -1,16 +1,15 @@
 {
-  "name": "domku-box-ultimate",
-  "version": "2.0.0",
+  "name": "domku-box-cdn",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && prisma db push && next build",
     "start": "next start",
     "lint": "next lint",
-    "analyze": "ANALYZE=true next build",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
-    "clean": "rm -rf .next node_modules"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.525.0",
@@ -51,6 +50,8 @@
     "@tanstack/react-query": "^5.24.1",
     "@tanstack/react-table": "^8.13.2",
     "@types/crypto-js": "^4.2.2",
+    "@upstash/ratelimit": "^1.0.1",
+    "@upstash/redis": "^1.28.4",
     "@vercel/analytics": "^1.2.2",
     "@vercel/edge": "^1.1.1",
     "@vercel/functions": "^1.0.1",
@@ -125,6 +126,7 @@
     "@types/geoip-lite": "^1.4.4",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20.11.24",
+    "@types/node-telegram-bot-api": "^0.64.2",
     "@types/nprogress": "^0.2.3",
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
