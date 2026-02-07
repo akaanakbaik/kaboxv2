@@ -1,15 +1,15 @@
 {
   "name": "domku-box-cdn",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma db push && next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
+    "postinstall": "prisma generate",
     "db:push": "prisma db push",
-    "db:studio": "prisma studio",
-    "postinstall": "prisma generate"
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.525.0",
@@ -50,8 +50,6 @@
     "@tanstack/react-query": "^5.24.1",
     "@tanstack/react-table": "^8.13.2",
     "@types/crypto-js": "^4.2.2",
-    "@upstash/ratelimit": "^1.0.1",
-    "@upstash/redis": "^1.28.4",
     "@vercel/analytics": "^1.2.2",
     "@vercel/edge": "^1.1.1",
     "@vercel/functions": "^1.0.1",
@@ -89,7 +87,7 @@
     "mobile-detect": "^1.4.5",
     "nanoid": "^5.0.6",
     "negotiator": "^0.6.3",
-    "next": "14.1.0",
+    "next": "14.2.3",
     "next-intl": "^3.9.1",
     "next-themes": "^0.2.1",
     "node-fetch": "^3.3.2",
@@ -134,7 +132,7 @@
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.18",
     "eslint": "^8.57.0",
-    "eslint-config-next": "14.1.0",
+    "eslint-config-next": "14.2.3",
     "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
