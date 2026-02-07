@@ -1,71 +1,61 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import acceptLanguage from "accept-language";
-import { Ratelimit } from "@upstash/ratelimit"; // Simulasi logic jika tanpa Redis
-import { Redis } from "@upstash/redis"; // Opsional, kita pakai in-memory map logic untuk Vercel Free
 
 acceptLanguage.languages(["id", "en"]);
 
 const cookieName = "i18next";
-const fallbackLng = "en";
-
-// Simple in-memory rate limiter untuk demo (Production wajib pakai Redis/KV)
-const rateLimitMap = new Map();
+const fallbackLng = "id";
 
 export function middleware(req: NextRequest) {
-  const ip = req.ip || "127.0.0.1";
-  
-  // 1. SECURITY: Rate Limiting (Simple Token Bucket Logic)
-  // Max 20 requests per 10 seconds per IP
-  const now = Date.now();
-  const windowMs = 10000;
-  const maxReq = 20;
-  
-  const record = rateLimitMap.get(ip) || { count: 0, startTime: now };
-  
-  if (now - record.startTime > windowMs) {
-    record.count = 1;
-    record.startTime = now;
-  } else {
-    record.count += 1;
-  }
-  rateLimitMap.set(ip, record);
-
-  if (record.count > maxReq) {
-    return new NextResponse(
-      JSON.stringify({ success: false, message: "Too many requests, slow down!", ip }),
-      { status: 429, headers: { "Content-Type": "application/json" } }
-    );
+  // 1. Skip jika request adalah file statis, API, atau internal next
+  if (
+    req.nextUrl.pathname.startsWith("/_next") ||
+    req.nextUrl.pathname.startsWith("/api") ||
+    req.nextUrl.pathname.startsWith("/static") ||
+    req.nextUrl.pathname.includes(".") // file dengan ekstensi (gambar, css, dll)
+  ) {
+    return NextResponse.next();
   }
 
-  // 2. I18N: Language Redirection logic
+  const ip = req.headers.get("x-forwarded-for") || "127.0.0.1";
   let lng;
-  if (req.cookies.has(cookieName)) lng = acceptLanguage.get(req.cookies.get(cookieName)?.value);
+  
+  // 2. Cek Cookie Bahasa
+  if (req.cookies.has(cookieName)) {
+    lng = acceptLanguage.get(req.cookies.get(cookieName)?.value);
+  }
+  
+  // 3. Jika tidak ada cookie, cek header Accept-Language atau GeoIP (header Vercel)
   if (!lng) {
-    // GeoIP detection logic via Vercel headers
-    const country = req.geo?.country?.toLowerCase();
+    const country = req.headers.get("x-geo-country")?.toLowerCase();
     lng = country === "id" ? "id" : "en";
   }
 
-  // Redirect if path is missing locale
-  if (
-    !req.nextUrl.pathname.startsWith("/id") &&
-    !req.nextUrl.pathname.startsWith("/en") &&
-    !req.nextUrl.pathname.startsWith("/api") &&
-    !req.nextUrl.pathname.startsWith("/_next") &&
-    !req.nextUrl.pathname.includes(".") // file extensions
-  ) {
-    return NextResponse.redirect(new URL(`/${lng}${req.nextUrl.pathname}`, req.url));
+  // 4. Redirect Root (/) ke bahasa yang dideteksi
+  if (req.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL(`/${lng}`, req.url));
   }
 
-  // 3. SECURITY: Header Injection for downstream
-  const response = NextResponse.next();
-  if (req.nextUrl.pathname.startsWith('/id')) response.cookies.set(cookieName, 'id');
-  if (req.nextUrl.pathname.startsWith('/en')) response.cookies.set(cookieName, 'en');
-  
-  response.headers.set('x-your-ip', ip);
-  response.headers.set('x-geo-country', req.geo?.country || 'unknown');
+  // 5. Cek apakah path sudah ada bahasa
+  const pathnameIsMissingLocale = ["id", "en"].every(
+    (locale) => !req.nextUrl.pathname.startsWith(`/${locale}/`) && req.nextUrl.pathname !== `/${locale}`
+  );
 
+  // 6. Redirect jika bahasa hilang dari URL
+  if (pathnameIsMissingLocale) {
+    return NextResponse.redirect(
+      new URL(`/${lng}${req.nextUrl.pathname}`, req.url)
+    );
+  }
+
+  // 7. Security Headers Injection
+  const response = NextResponse.next();
+  if (req.nextUrl.pathname.startsWith("/id")) response.cookies.set(cookieName, "id");
+  if (req.nextUrl.pathname.startsWith("/en")) response.cookies.set(cookieName, "en");
+  
+  response.headers.set("x-your-ip", ip);
+  
   return response;
 }
 
