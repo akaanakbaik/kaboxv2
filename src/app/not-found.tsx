@@ -1,39 +1,31 @@
 import Link from "next/link";
-import { MoveLeft, FileQuestion } from "lucide-react";
-import "@/app/globals.css";
+import { MoveLeft } from "lucide-react";
+import "./globals.css";
 
-// Wajib force-dynamic agar tidak errorr saat build static
 export const dynamic = "force-dynamic";
 
 export default function NotFound() {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className="min-h-screen bg-background font-sans antialiased flex flex-col items-center justify-center text-foreground">
         <div className="container flex flex-col items-center justify-center gap-6 px-4 text-center md:gap-10">
           <div className="space-y-2">
-            <div className="flex justify-center mb-6">
-              <div className="p-4 rounded-full bg-muted/50 border border-border shadow-sm">
-                <FileQuestion className="h-12 w-12 text-muted-foreground" />
-              </div>
-            </div>
-            <h1 className="text-4xl font-extrabold tracking-tighter sm:text-6xl md:text-7xl">
+            <h1 className="text-9xl font-extrabold tracking-tighter text-primary/10 select-none">
               404
             </h1>
-            <h2 className="text-xl font-semibold tracking-tight text-muted-foreground sm:text-2xl">
-              Page Not Found
-            </h2>
-            <p className="mx-auto max-w-[600px] text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed">
-              Halaman tidak ditemukan.
+            <h2 className="text-3xl font-bold tracking-tight">Page Not Found</h2>
+            <p className="text-muted-foreground max-w-[600px] mx-auto">
+              Halaman yang Anda cari tidak ditemukan.
             </p>
           </div>
           
-          <div className="flex flex-col gap-2 min-[400px]:flex-row">
+          <div className="mt-8 z-10">
             <Link
               href="/"
-              className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
+              className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
             >
-              <MoveLeft className="mr-2 h-4 w-4" />
-              Kembali
+              <MoveLeft className="h-4 w-4" />
+              Kembali ke Home
             </Link>
           </div>
         </div>
