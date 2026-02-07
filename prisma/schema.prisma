@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model FileMetadata {
+  id             String   @id @unique
+  originalName   String
+  mimeType       String
+  size           Int
+  provider       String
+  providerFileId String
+  publicUrl      String
+  deleteUrl      String?
+  ipAddress      String
+  country        String?
+  downloads      Int      @default(0)
+  status         String   @default("uploading")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([id])
+  @@index([ipAddress])
+}
+
+model AccessLog {
+  id        String   @id @default(uuid())
+  fileId    String
+  ipAddress String
+  userAgent String?
+  timestamp DateTime @default(now())
+  action    String
+  
+  @@index([fileId])
+}
+
+model Blacklist {
+  id        String   @id @default(uuid())
+  ipAddress String   @unique
+  reason    String
+  createdAt DateTime @default(now())
+}
