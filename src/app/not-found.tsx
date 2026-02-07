@@ -2,7 +2,7 @@ import Link from "next/link";
 import { MoveLeft, FileQuestion } from "lucide-react";
 import "@/app/globals.css";
 
-// Wajib force-dynamic agar tidak error saat build static
+// Wajib force-dynamic agar tidak errorr saat build static
 export const dynamic = "force-dynamic";
 
 export default function NotFound() {
