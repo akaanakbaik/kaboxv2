@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Copy, ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn, copyToClipboard } from "@/lib/utils";
+import { Icons } from "@/components/icons";
 
 interface ApiCardProps {
   method: "GET" | "POST" | "DELETE" | "PUT";
@@ -59,7 +59,7 @@ export function ApiCard({
         </div>
         <div className="flex items-center gap-2 text-muted-foreground">
           <span className="text-sm hidden sm:inline-block">{title}</span>
-          {isExpanded ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+          {isExpanded ? <Icons.chevronUp className="h-4 w-4" /> : <Icons.chevronDown className="h-4 w-4" />}
         </div>
       </div>
 
@@ -89,9 +89,9 @@ export function ApiCard({
                     className="p-1 hover:bg-muted rounded-md transition-colors"
                   >
                     {copied ? (
-                      <Check className="w-3 h-3 text-green-500" />
+                      <Icons.check className="w-3 h-3 text-green-500" />
                     ) : (
-                      <Copy className="w-3 h-3 text-muted-foreground" />
+                      <Icons.copy className="w-3 h-3 text-muted-foreground" />
                     )}
                   </button>
                 </div>
