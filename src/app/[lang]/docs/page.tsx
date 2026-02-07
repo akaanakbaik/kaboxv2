@@ -6,7 +6,7 @@ export default function ApiDocsPage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1 container py-12 max-w-5xl">
+      <main className="flex-1 container py-12 max-w-5xl px-4">
         <div className="space-y-6 mb-12">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
             API Documentation
