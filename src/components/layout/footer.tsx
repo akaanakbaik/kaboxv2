@@ -4,7 +4,7 @@ import { Icons } from "@/components/icons";
 export function Footer() {
   return (
     <footer className="w-full border-t bg-background py-6">
-      <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
+      <div className="container flex flex-col items-center justify-between gap-4 md:flex-row px-4">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <span>created by</span>
           <Link
