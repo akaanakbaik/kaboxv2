@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -63,7 +63,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
             <nav className="flex flex-col gap-4">
               {menuItems.map((item) => {
-                const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+                const isActive = pathname.includes(item.href);
                 return (
                   <Link
                     key={item.href}
@@ -82,7 +82,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             <div className="absolute bottom-6 left-6 right-6">
                <div className="rounded-lg border bg-card p-4 text-xs text-muted-foreground">
                   <p>Server Status: <span className="text-green-500 font-bold">Online</span></p>
-                  <p className="mt-1">v2.0.0 Stable</p>
+                  <p className="mt-1">v3.2.0 Stable</p>
                </div>
             </div>
           </motion.div>
