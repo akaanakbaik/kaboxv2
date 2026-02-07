@@ -10,7 +10,10 @@ import {
   AlertCircle,
   Loader2,
   Copy,
-  ExternalLink
+  ExternalLink,
+  Check,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
 
 export const Icons = {
@@ -25,7 +28,10 @@ export const Icons = {
   error: AlertCircle,
   spinner: Loader2,
   copy: Copy,
+  check: Check,
   link: ExternalLink,
+  chevronDown: ChevronDown,
+  chevronUp: ChevronUp,
   logo: ({ className }: { className?: string }) => (
     <svg
       xmlns="http://www.w3.org/2000/svg"
